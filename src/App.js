@@ -1,20 +1,41 @@
+import React, { useState } from "react";
+import Expenses from "./component/Expenses/Expenses";
+import NewExpenses from "./component/NewExpenses/NewExpenses";
+
 function App() {
+  const DUMMY_EXPENSES = [
+    {
+      id: 'ed1',
+      title: "New Mobile",
+      amount: 250,
+      date: new Date(2021, 8, 15),
+    },
+    {
+      id: 'ed2',
+      title: "Laptop",
+      amount: 250,
+      date: new Date(2021, 8, 15),
+    },
+    {
+      id: 'ed3',
+      title: "tv",
+      amount: 250,
+      date: new Date(2021, 8, 15),
+    },
+  ];
+
+  const [expenses, setExpenses] = useState(DUMMY_EXPENSES);
+
+  const enteredDataHandler = (enteredData) => {
+    setExpenses((prevExpenses) => {
+      return [enteredData, ...prevExpenses];
+    });
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <NewExpenses onEnteredData={enteredDataHandler} />
+      <Expenses items={expenses} />
     </div>
   );
 }
